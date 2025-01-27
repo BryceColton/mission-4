@@ -10,19 +10,19 @@ namespace mission_4
     {
         public void PrintBoard(string[,] board)
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("      |      |      ");
-            Console.WriteLine("  {0}   |  {1}   ", board[0, 0], board[0,1], board[0,2]);
+            Console.WriteLine("  {0}   |  {1}   |  {2}", board[0, 0], board[0,1], board[0,2]);
             Console.WriteLine("______|______|______");
             Console.WriteLine("      |      |      ");
-            Console.WriteLine("  {0}   |  {1}   ", board[1, 0], board[1,1], board[1,2]);
+            Console.WriteLine("  {0}   |  {1}   |  {2}", board[1, 0], board[1,1], board[1,2]);
             Console.WriteLine("______|______|______");
             Console.WriteLine("      |      |      ");
-            Console.WriteLine("  {0}   |  {1}   ", board[2, 0], board[2,1], board[2,2]);
+            Console.WriteLine("  {0}   |  {1}   |  {2}", board[2, 0], board[2,1], board[2,2]);
             Console.WriteLine("      |      |     ");
         }
         
-        public static string Winner(string[,] board, int turns)
+        public string Winner(string[,] board, int turns)
         {
             // Creating a loop to check for possible winners by rows
             for (int i = 0; i < 3; i++)
@@ -52,15 +52,15 @@ namespace mission_4
             {
                 return $"{board[0, 2]} is the winner!!";
             }
-            
-            // Return nothing if there is no winner
-            return " ";
-            
-            // Checking for a draw
             if (turns == 9)
             {
-                Console.WriteLine("DRAW! ");
-            }    
+                return "Draw!!!";
+            }
+            // Return nothing if there is no winner
+            return null;
+            
+            // Checking for a draw
+              
         }
 
   

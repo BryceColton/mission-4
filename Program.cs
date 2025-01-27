@@ -2,10 +2,7 @@
 using System.Diagnostics.Tracing;
 using System.Linq;
 using mission_4;
-Console.WriteLine("Hello, World!");
 
-//Welcome the user to the game
-Console.WriteLine("Welcome to the game!");
 
 
 // initializing the player 1 and player 2 values
@@ -28,30 +25,48 @@ string gameOver = null;
 
 bool IsInPlayfield(string[,] playfield, int number)
 {
-    string stringNumber = number.ToString(); // Convert number to its char representation
+    string stringNumber = number.ToString();
     for (int i = 0; i < playfield.GetLength(0); i++)
     {
         for (int j = 0; j < playfield.GetLength(1); j++)
         {
-            if (playfield[i, j] == stringNumber)
+            if (playfield[i, j] == stringNumber) // Spot is available if it matches the input
             {
                 return true;
             }
         }
     }
-    return false;
+    return false; // Spot is taken or invalid
 }
 
-do
+while (gameOver == null)
 {
+
+    TicTacToeBoard tcb = new TicTacToeBoard();
+
+    tcb.PrintBoard(playfield);
+
+    //Welcome the user to the game
+    Console.WriteLine("Welcome to the game!");
+
     Console.WriteLine("Player 1 which space would you like to take?");
+
+
 
     string input = Console.ReadLine();
 
-    if (int.TryParse(input, out player1) && IsInPlayfield(playfield, player1))
+    if (!int.TryParse(input, out int position) || position < 1 || position > 9)
     {
-        Console.WriteLine($"{player1} is a valid number and exists in the playfield.");
+        Console.WriteLine("Please enter a valid number between 1 and 9.");
+        continue; // Skip the rest of the loop for invalid input
     }
+
+    if (!IsInPlayfield(playfield, position))
+    {
+        Console.WriteLine("That spot is already taken. Please choose another.");
+        continue; 
+    }
+
     else
     {
         Console.WriteLine("Invalid input or the number does not exist in the playfield.");
@@ -83,10 +98,14 @@ do
     }
 
     turns++;
-    TicTacToeBoard tcb = new TicTacToeBoard();
 
     tcb.PrintBoard(playfield);
     gameOver = tcb.Winner(playfield, turns);
+
+    if (gameOver != null)
+    {
+        break;
+    }
 
     Console.WriteLine("Player 2 which space would you like to take?");
     input = Console.ReadLine();
@@ -123,26 +142,19 @@ do
     }
     turns++;
 
-    ticTacToe(playfield);
-    gameOver = ticTacToeWinner(playfield, turns);
+    tcb.PrintBoard(playfield);
+    gameOver = tcb.Winner(playfield, turns);
 
-    
-} while (gameOver is null);
+    if (gameOver != null)
+    {
+        break;
+    }
 
 
-
-if (gameOver == "X")
-{
-    Console.WriteLine("Player 1 Congratulations you won the game!");
 }
-else if (gameOver == "O")
-{
-    Console.WriteLine("Player 2 Congratulations you won the game!");
-}
-else if (gameOver == "Draw")
-{
-    Console.WriteLine("Draw!!!!!!");
-}
+
+Console.WriteLine(gameOver);
+
 
 
 
