@@ -83,8 +83,10 @@ do
     }
 
     turns++;
-    Supporting.printBoard(playfield);
-    gameOver = Winner(playfield, turns);
+    TicTacToeBoard tcb = new TicTacToeBoard();
+
+    tcb.PrintBoard(playfield);
+    gameOver = tcb.Winner(playfield, turns);
 
     Console.WriteLine("Player 2 which space would you like to take?");
     input = Console.ReadLine();

@@ -8,7 +8,7 @@ namespace mission_4
 {
     public class TicTacToeBoard
     {
-        public void PrintBoard(char[,] board)
+        public void PrintBoard(string[,] board)
         {
             Console.Clear();
             Console.WriteLine("      |      |      ");
@@ -22,7 +22,7 @@ namespace mission_4
             Console.WriteLine("      |      |     ");
         }
 
-        public static string Winner(string[,] board)
+        public static string Winner(string[,] board, int turns)
         {
             // Creating a loop to check for possible winners by rows
             for (int i = 0; i < 3; i++)
@@ -54,8 +54,11 @@ namespace mission_4
             }
             
             // Return nothing if there is no winner
-            return " ";
+            return null;
         }
+
+  
+
     }
 }
 
