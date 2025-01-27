@@ -49,125 +49,53 @@ bool IsInPlayfield(string[,] playfield, int number)
 
     return true; // Spot is available
 }
+string currentPlayer = "Player 1"; // Track the current player
+string currentSign = "X";         // Track the current player's sign
 
 while (gameOver == null)
 {
-
     TicTacToeBoard tcb = new TicTacToeBoard();
-
     tcb.PrintBoard(playfield);
 
-    //Welcome the user to the game
-    Console.WriteLine("Welcome to the game!");
-
-    Console.WriteLine("Player 1 which space would you like to take?");
-
-
-
+    Console.WriteLine($"{currentPlayer}, which space would you like to take?");
     string input = Console.ReadLine();
 
     if (!int.TryParse(input, out int position) || position < 1 || position > 9)
     {
         Console.WriteLine("Please enter a valid number between 1 and 9.");
-        continue; // Skip the rest of the loop for invalid input
+        continue; // Retry the same player's turn
     }
 
     if (!IsInPlayfield(playfield, position))
     {
         Console.WriteLine("That spot is already taken. Please choose another.");
-        continue; 
+        continue; // Retry the same player's turn
     }
 
-    //else
-    //{
-    //    Console.WriteLine("Invalid input or the number does not exist in the playfield.");
-    //}
-    string playerSign1 = "X";
-    string playerSign2 = "O";
-
-    switch (player1)
-    {
-        case 1:
-            playfield[0, 0] = playerSign1; break;
-        case 2:
-            playfield[0, 1] = playerSign1; break;
-        case 3:
-            playfield[0, 2] = playerSign1; break;
-        case 4:
-            playfield[1, 0] = playerSign1; break;
-        case 5:
-            playfield[1, 1] = playerSign1; break;
-        case 6:
-            playfield[1, 2] = playerSign1; break;
-        case 7:
-            playfield[2, 0] = playerSign1; break;
-        case 8:
-            playfield[2, 1] = playerSign1; break;
-        case 9:
-            playfield[2, 2] = playerSign1; break;
-
-    }
-
+    // Update the playfield
+    UpdatePlayfield(playfield, position, currentSign);
     turns++;
 
-    tcb.PrintBoard(playfield);
+    // Check if the current player wins
     gameOver = tcb.Winner(playfield, turns);
-
-    UpdatePlayfield(playfield, position, "X");
-
     if (gameOver != null)
-    {
         break;
-    }
 
-    Console.WriteLine("Player 2 which space would you like to take?");
-    input = Console.ReadLine();
-
-    if (int.TryParse(input, out player2) && IsInPlayfield(playfield, player2))
+    // Switch to the other player
+    if (currentPlayer == "Player 1")
     {
-        Console.WriteLine($"{player2} is a valid number and exists in the playfield.");
+        currentPlayer = "Player 2";
+        currentSign = "O";
     }
     else
     {
-        Console.WriteLine("Invalid input or the number does not exist in the playfield.");
+        currentPlayer = "Player 1";
+        currentSign = "X";
     }
-    switch (player2)
-    {
-        case 1:
-            playfield[0, 0] = playerSign2; break;
-        case 2:
-            playfield[0, 1] = playerSign2; break;
-        case 3:
-            playfield[0, 2] = playerSign2; break;
-        case 4:
-            playfield[1, 0] = playerSign2; break;
-        case 5:
-            playfield[1, 1] = playerSign2; break;
-        case 6:
-            playfield[1, 2] = playerSign2; break;
-        case 7:
-            playfield[2, 0] = playerSign2; break;
-        case 8:
-            playfield[2, 1] = playerSign2; break;
-        case 9:
-            playfield[2, 2] = playerSign2; break;
-
-    }
-    turns++;
-
-    tcb.PrintBoard(playfield);
-    gameOver = tcb.Winner(playfield, turns);
-
-    if (gameOver != null)
-    {
-        break;
-    }
-
-
 }
 
+//tcb.PrintBoard(playfield);
 Console.WriteLine(gameOver);
-
 
 
 
