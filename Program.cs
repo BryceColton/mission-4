@@ -13,27 +13,27 @@ int player1 = 0;
 int player2 = 0;
 
 //Create a game board array to store the players' choices
- char[,] playfield =
+ string[,] playfield =
 {
-    {'1', '2', '3' },
-    {'4', '5', '6' },
-    {'7', '8', '9' }
+    {"1", "2", "3" },
+    {"4", "5", "6" },
+    {"7", "8", "9" }
 };
 
  int turns = 0;
 
 
 // declaring GameOver Tuple
-(bool isOver, char winner) gameOver = (false, 'x');
+string gameOver = null;
 
-bool IsInPlayfield(char[,] playfield, int number)
+bool IsInPlayfield(string[,] playfield, int number)
 {
-    char charNumber = number.ToString()[0]; // Convert number to its char representation
+    string stringNumber = number.ToString(); // Convert number to its char representation
     for (int i = 0; i < playfield.GetLength(0); i++)
     {
         for (int j = 0; j < playfield.GetLength(1); j++)
         {
-            if (playfield[i, j] == charNumber)
+            if (playfield[i, j] == stringNumber)
             {
                 return true;
             }
@@ -56,8 +56,8 @@ do
     {
         Console.WriteLine("Invalid input or the number does not exist in the playfield.");
     }
-    char playerSign1 = 'X';
-    char playerSign2 = 'O';
+    string playerSign1 = "X";
+    string playerSign2 = "O";
 
     switch (player1)
     {
@@ -83,8 +83,8 @@ do
     }
 
     turns++;
-    ticTacToe(playfield);
-    gameOver = ticTacToeWinner(playfield, turns);
+    Supporting.printBoard(playfield);
+    gameOver = Winner(playfield, turns);
 
     Console.WriteLine("Player 2 which space would you like to take?");
     input = Console.ReadLine();
@@ -125,19 +125,22 @@ do
     gameOver = ticTacToeWinner(playfield, turns);
 
     
-} while (!gameOver.isOver);
+} while (gameOver is null);
 
 
 
-if (gameOver.winner == 'X')
+if (gameOver == "X")
 {
     Console.WriteLine("Player 1 Congratulations you won the game!");
 }
-else if (gameOver.winner == 'O')
+else if (gameOver == "O")
 {
     Console.WriteLine("Player 2 Congratulations you won the game!");
 }
-
+else if (gameOver == "Draw")
+{
+    Console.WriteLine("Draw!!!!!!");
+}
 
 
 
