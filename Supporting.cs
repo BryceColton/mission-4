@@ -21,7 +21,7 @@ namespace mission_4
             Console.WriteLine("  {0}   |  {1}   ", board[2, 0], board[2,1], board[2,2]);
             Console.WriteLine("      |      |     ");
         }
-
+        
         public static string Winner(string[,] board, int turns)
         {
             // Creating a loop to check for possible winners by rows
@@ -54,7 +54,13 @@ namespace mission_4
             }
             
             // Return nothing if there is no winner
-            return null;
+            return " ";
+            
+            // Checking for a draw
+            if (turns == 9)
+            {
+                Console.WriteLine("DRAW! ");
+            }    
         }
 
   
