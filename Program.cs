@@ -27,7 +27,7 @@ void UpdatePlayfield(string[,] playfield, int position, string playerSign)
 
     // Ensure the position is updated
     playfield[row, col] = playerSign;
-    Console.WriteLine($"Updated playfield[{row}, {col}] to {playerSign}"); // Debug print
+    //Console.WriteLine($"{playerSign}"); // Debug print
 }
 
 
@@ -96,13 +96,4 @@ while (gameOver == null)
 
 //tcb.PrintBoard(playfield);
 Console.WriteLine(gameOver);
-
-
-
-//Ask each player in turn for their choice and update the game board array
-
-//Print the board by calling the method in the supporting class
-
-/* Check for a winner by calling the method in the supporting class, and notify the players
- When a win has occurred and which player won the game */
 

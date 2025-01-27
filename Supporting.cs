@@ -10,7 +10,6 @@ namespace mission_4
     {
         public void PrintBoard(string[,] board)
         {
-            //Console.Clear();
             Console.WriteLine("      |      |      ");
             Console.WriteLine("  {0}   |  {1}   |  {2}", board[0, 0], board[0,1], board[0,2]);
             Console.WriteLine("______|______|______");
