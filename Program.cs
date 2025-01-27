@@ -20,23 +20,34 @@ int player2 = 0;
  int turns = 0;
 
 
+void UpdatePlayfield(string[,] playfield, int position, string playerSign)
+{
+    int row = (position - 1) / 3;
+    int col = (position - 1) % 3;
+
+    // Ensure the position is updated
+    playfield[row, col] = playerSign;
+    Console.WriteLine($"Updated playfield[{row}, {col}] to {playerSign}"); // Debug print
+}
+
+
+
 // declaring GameOver Tuple
 string gameOver = null;
 
 bool IsInPlayfield(string[,] playfield, int number)
 {
-    string stringNumber = number.ToString();
-    for (int i = 0; i < playfield.GetLength(0); i++)
+    // Calculate the row and column based on the input number
+    int row = (number - 1) / 3;
+    int col = (number - 1) % 3;
+
+    // Check if the position is already taken by "X" or "O"
+    if (playfield[row, col] == "X" || playfield[row, col] == "O")
     {
-        for (int j = 0; j < playfield.GetLength(1); j++)
-        {
-            if (playfield[i, j] == stringNumber) // Spot is available if it matches the input
-            {
-                return true;
-            }
-        }
+        return false; // Spot is taken
     }
-    return false; // Spot is taken or invalid
+
+    return true; // Spot is available
 }
 
 while (gameOver == null)
@@ -67,10 +78,10 @@ while (gameOver == null)
         continue; 
     }
 
-    else
-    {
-        Console.WriteLine("Invalid input or the number does not exist in the playfield.");
-    }
+    //else
+    //{
+    //    Console.WriteLine("Invalid input or the number does not exist in the playfield.");
+    //}
     string playerSign1 = "X";
     string playerSign2 = "O";
 
@@ -101,6 +112,8 @@ while (gameOver == null)
 
     tcb.PrintBoard(playfield);
     gameOver = tcb.Winner(playfield, turns);
+
+    UpdatePlayfield(playfield, position, "X");
 
     if (gameOver != null)
     {
