@@ -64,3 +64,10 @@ namespace mission_4
         }
     }
 }
+
+// Receive the "board" array from the driver class
+
+// Contain the method that prints the board based on the information passed to it
+
+/* Contain a method that receives the game board array as input and returns if there is a winner
+ and who it was */
